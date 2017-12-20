@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+"""
+--- Day 3: Spiral Memory ---
+"""
+
 import collections
 import numpy
 import math
@@ -27,10 +31,6 @@ def get_next_direction(d):
     return directions[(directions.index(d) + 3) % 4]
 
 
-def get_prev_direction(d):
-    return directions[(directions.index(d) + 1) % 4]
-
-
 def get_distance(p1, p2):
     """ a distance between two points.  """
     return abs(p1.x - p2.x) + abs(p1.y - p2.y)
@@ -38,14 +38,6 @@ def get_distance(p1, p2):
 
 def index_out_of_range(cell, size):
     return cell.x >= size or cell.x < 0 or cell.y >= size or cell.y < 0
-
-
-def get_next_cell(part=1):
-    """ part 1 simply returns 1, part 2 is a bit more complicated."""
-    # part 1:
-    if part == 1:
-        return 1
-    # part 2:
 
 
 def build_spiral(size, next_cell_function):
@@ -83,16 +75,6 @@ def build_spiral(size, next_cell_function):
 
 
 def get_sum_neighbours(matrix, cell):
-    """ gets only sum of the four surrounding neighbours """
-    result = 0
-    for direction in directions:
-        new_cell = move(cell, direction)
-        if not index_out_of_range(new_cell, len(matrix)):
-            result += matrix.item(new_cell)
-    return result
-
-
-def get_sum_all_neighbours(matrix, cell):
     """
     Get the sum of all surrounding neighbours.
     This actually draws a swastika, as it moves from the centre
@@ -119,27 +101,27 @@ def compute():
     matrix = build_spiral(size, lambda i: i + 1)
     # find the input number in the matrix
     result_cell = numpy.where(matrix == input_num)
+    result_cell = [list(x).pop() for x in list(result_cell)]
     return get_distance(Point(size//2, size//2), Point(*result_cell))
 
 
 def compute_sum_of_neighbours():
     """ every next square filling is the sum of the neighbouring cells. """
     size = 9
-    matrix = build_spiral(size, get_sum_all_neighbours)
+    matrix = build_spiral(size, get_sum_neighbours)
     result_cell = numpy.where(matrix > input_num)
-    print(min(matrix[result_cell]))
-    return get_distance(Point(size//2, size//2), Point(*result_cell))
+    return min(matrix[result_cell])
 
 
 def main():
 
     result = compute()
-    print("Part 1: Distance from 1 to {} is {}.".format(input_num, result))
+    print("Distance from 1 to {} is {}.".format(input_num, result))
 
     result2 = compute_sum_of_neighbours()
     print("First value bigger than {} is {}".format(input_num, result2))
 
-    returnga 
+    return
 
 
 if __name__ == '__main__':
