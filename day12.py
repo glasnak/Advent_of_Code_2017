@@ -74,7 +74,7 @@ def count_groups(relations):
 
 
 def main():
-    """ Calculate the distance moved in the hex grid """
+    """ Calculate the node groups and their connections """
     relations = parse_input(get_input())
     relation_set = find_relations(relations, 0)
     print("Number of nodes connected to zero is {}".format(len(relation_set)))
