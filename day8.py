@@ -31,9 +31,11 @@ def is_input_valid():
 
 
 def get_input():
+    """ return the input instructions """
+
     # return test_input.splitlines()
 
-    with open(input_file, 'r') as f:
+    with open(input_file) as f:
         return f.readlines()
 
 
