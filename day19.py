@@ -46,7 +46,7 @@ def walkthrough(matrix):
     end_letter = 'A'
     position = (0, matrix[0].find('|'))
     direction = DIRECTIONS['down']
-    x, y = position
+
     position_val = matrix[position[0]][position[1]]
     steps = 0
     while position_val != end_letter:
